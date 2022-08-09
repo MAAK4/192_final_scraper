@@ -1,7 +1,7 @@
 
 '''
         >>> Step 1
-        >>> Author : hmak43
+        >>> Author : Hamza
         >>> Programming Style : Functional / Script
         >>> Script Aim : Scraper
         >>> Async/Sync : Sync (tbc_later)
@@ -18,16 +18,41 @@
 
 '''
 
-
-print(__file__.split("\\")[-1])
-
-
 import requests, os
 from bs4 import BeautifulSoup as BS
 from collections import ChainMap
-from utils import payload_parser as PP
-from utils import headers, url_adv_search
-from log_script import log, console
+# from utils import payload_parser as PP
+# from utils import headers, url_adv_search
+# # from log_script import log, console
+
+
+params = """company: 
+	description: {}
+	subbuild: 
+	buildno: 
+	buildname: 
+	street: 
+	locality: 
+	town: 
+	county: 
+	postcode: 
+	country: 
+	btnSearch: Search"""
+
+
+def prepare_params(item_needed : str, params_template : str) -> str:
+
+	params_template = params_template.format(item_needed)
+	params_template = [x.replace("\t", "") for x in params_template.split("\n")]
+	params_template = [(x.split(":")) for x in params_template]
+	params_template = {x:y for [x,y] in params_template}
+
+
+	return params_template
+
+
+print(prepare_params('gold', params_template=params))
+
 
 
 def main(url_adv_search, headers, item_needed):
